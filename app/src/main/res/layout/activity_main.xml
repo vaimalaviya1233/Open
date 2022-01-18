@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#353535"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/command"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:autofillHints="false"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="@string/enter_command"
+        android:inputType="textNoSuggestions|textPersonName"
+        android:minHeight="48dp"
+        android:onClick="ClearCommand"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_background"
+        android:textColorHint="#FF9800"
+        android:tooltipText="@string/enter_command"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/R_command"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/run_command"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/command" />
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="403dp"
+        android:layout_height="603dp"
+        android:layout_marginHorizontal="2dp"
+        android:layout_marginVertical="10dp"
+        android:maxHeight="390dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/R_command">
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="408dp"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="15dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:autoSizeTextType="uniform"
+                    android:foregroundGravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    android:text="@string/command_G"
+                    android:textColor="#EEEEEE"
+                    android:textIsSelectable="true" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

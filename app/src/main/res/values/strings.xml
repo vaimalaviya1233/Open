@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">open</string>
+    <string name="command_r">☢︎☢︎☢︎</string>
+    <string name="command_G">-----︎</string>
+    <string name="ent_more">Command should be more than One character</string>
+    <string name="invalid_cmd">Invalid Character in command.</string>
+    <string name="enter_command">Enter Command</string>
+    <string name="run_command">Run Command</string>
+</resources>
