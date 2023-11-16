@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     public Context mContext;
-    DrAdb adb = new DrAdb(this);
+    DrAdb adb;
     private TextView result;
     private EditText ent_cmd;
     private String TAG = "KEY Typed : ";
@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        adb = new DrAdb(this);
         mContext = this;
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()

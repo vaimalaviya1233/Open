@@ -28,16 +28,17 @@ public class DrAdb {
     public static final String PRIVATE_KEY_NAME = "private.key";
     public static String TAG = "Dr.Adb Said : ";
     public static String TAGG = "Informer Said : ";
-    private static Context context;
+    private static Context context = null;
     private AdbConnection connector = null;
     private Socket socket = null;
-    private AdbCrypto crypto = setupCrypto();
+    private AdbCrypto crypto;
 //    private final Context mcontext;
 //    private final String adbCommand;
 
     public DrAdb(Context context) {
-        DrAdb.context = context;
-//        this.mcontext = context;
+//        DrAdb.context = context;
+        this.context = context;
+        crypto = setupCrypto();
 //        adbCommand = cmd;
     }
 
@@ -46,7 +47,7 @@ public class DrAdb {
     }
 
     @Nullable
-    private static AdbCrypto setupCrypto() {
+    private AdbCrypto setupCrypto() {
         File dataDir = context.getDataDir();
         File pub = new File(dataDir + "//" + PUBLIC_KEY_NAME);
         File priv = new File(dataDir + "//" + PRIVATE_KEY_NAME);

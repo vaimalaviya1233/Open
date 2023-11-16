@@ -69,14 +69,20 @@
                     android:layout_marginVertical="15dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
+                    android:autoSizeMaxTextSize="14sp"
                     android:autoSizeTextType="uniform"
+                    android:autoText="false"
                     android:foregroundGravity="center_vertical"
                     android:gravity="center_vertical"
                     android:minWidth="48dp"
                     android:minHeight="48dp"
                     android:text="@string/command_G"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="#EEEEEE"
-                    android:textIsSelectable="true" />
+                    android:textIsSelectable="true"
+                    android:textSize="8sp"
+                    android:textStyle="normal" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
