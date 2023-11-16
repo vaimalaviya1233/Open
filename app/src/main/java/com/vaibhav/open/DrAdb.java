@@ -4,8 +4,6 @@ import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.text.format.Formatter;
 import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -31,6 +29,9 @@ public class DrAdb {
     public static String TAG = "Dr.Adb Said : ";
     public static String TAGG = "Informer Said : ";
     private static Context context;
+    private AdbConnection connector = null;
+    private Socket socket = null;
+    private AdbCrypto crypto = setupCrypto();
 //    private final Context mcontext;
 //    private final String adbCommand;
 
@@ -83,82 +84,80 @@ public class DrAdb {
         return crypto;
     }
 
-    public String Commander(String cmd){
-        String[] Result = new String[10];
-        AdbConnection connector = null;
-        Socket socket = null;
-        AdbCrypto crypto = setupCrypto();
-        System.out.println(TAGG+"Socket Connecting...");
-        try {
-            socket = new Socket(getdeviceIpAddress(),5555);
-        }catch(UnknownHostException e){
-            e.printStackTrace();
-            System.out.println(TAG+"UnknownhostException at line 83");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println(TAG+"IOException at line 83");
-        }
-        System.out.println(TAGG+"Socket Connected");
-        assert socket != null;
-        try {
-            connector = AdbConnection.create(socket,crypto);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println(TAG+"Error at line 96 & Thrown IOException");
-        }
-        System.out.println(TAGG+"ADB Connecting....");
-        assert connector != null;
-        try {
-            connector.connect();
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            System.out.println(TAG+"Error at line 104");
-        }
-        System.out.println(TAGG+"ADB Connected");
-
-        AdbStream stream = null;
-        try {
-            stream = connector.open("shell:"+cmd);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            System.out.println(TAG+"Error at line 114 by InterruptedException");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            System.out.println(TAG+"Error at line 114 by UnsupportedEncodingException");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println(TAG+"Error at line 114 by IOException");
-        }
-
-        AdbStream finalStream = stream;
-        StringBuilder h = new StringBuilder();
-
-            while (!finalStream.isClosed()) {
-                try{
-                    try {
-                        String Temp[] = new String[100];
-                        h.append(new String(finalStream.read(), StandardCharsets.US_ASCII));
-                        System.out.println(new String(finalStream.read(), StandardCharsets.US_ASCII));
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                        System.out.println(TAG+"Error At line 132 by InterruptedException");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        System.out.println(TAG+"Error At line 132 by IOException");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.out.println("Unknown Exception Thrown Between lines 130 to 141");
-                }
-            }
-        return h.toString();
-    }
-
     public static String getdeviceIpAddress() {
         WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
         Log.d(TAG, String.valueOf(ip));
         System.out.println(" IP Address is " + ip);
         return ip;
+    }
+
+    public String Commander(String cmd) {
+        String[] Result = new String[10];
+        crypto = setupCrypto();
+        System.out.println(TAGG + "Socket Connecting...");
+        try {
+            socket = new Socket(getdeviceIpAddress(), 5555);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            System.out.println(TAG + "UnknownhostException at line 83");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println(TAG + "IOException at line 83");
+        }
+        System.out.println(TAGG + "Socket Connected");
+        assert socket != null;
+        try {
+            connector = AdbConnection.create(socket, crypto);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println(TAG + "Error at line 96 & Thrown IOException");
+        }
+        System.out.println(TAGG + "ADB Connecting....");
+        assert connector != null;
+        try {
+            connector.connect();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            System.out.println(TAG + "Error at line 104");
+        }
+        System.out.println(TAGG + "ADB Connected");
+
+        AdbStream stream = null;
+        try {
+            stream = connector.open("shell:" + cmd);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            System.out.println(TAG + "Error at line 114 by InterruptedException");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            System.out.println(TAG + "Error at line 114 by UnsupportedEncodingException");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println(TAG + "Error at line 114 by IOException");
+        }
+
+        AdbStream finalStream = stream;
+        StringBuilder h = new StringBuilder();
+
+        while (!finalStream.isClosed()) {
+            try {
+                try {
+                    String[] Temp = new String[100];
+                    h.append(new String(finalStream.read(), StandardCharsets.US_ASCII));
+                    System.out.println(new String(finalStream.read(), StandardCharsets.US_ASCII));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    System.out.println(TAG + "Error At line 132 by InterruptedException");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println(TAG + "Error At line 132 by IOException");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Unknown Exception Thrown Between lines 130 to 141");
+            }
+        }
+        return h.toString();
     }
 }
