@@ -12,7 +12,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:autofillHints="false"
         android:ems="10"
@@ -46,13 +46,14 @@
         android:layout_marginVertical="10dp"
         android:maxHeight="390dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/R_command">
 
         <ScrollView
             android:id="@+id/scrollView2"
-            android:layout_width="408dp"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginBottom="15dp">
 

@@ -12,11 +12,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.vaibhav.open.databinding.ActivityMainBinding;
+
 public class MainActivity extends AppCompatActivity {
     public Context mContext;
     DrAdb adb;
     private TextView result;
     private EditText ent_cmd;
+    private ActivityMainBinding binding;
     private String TAG = "KEY Typed : ";
     private String backward_cmd[] = new String[10];
 
@@ -120,7 +123,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+
+//        setContentView(R.layout.activity_main);
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+
         adb = new DrAdb(this);
         mContext = this;
 
@@ -131,9 +141,10 @@ public class MainActivity extends AppCompatActivity {
                 .penaltyLog()
                 .build()); //allows network operations on mainThread, without this it would give networkOnMainThreadException
 
-        result = findViewById(R.id.textV);//find command result variable
-        ent_cmd = findViewById(R.id.command);//find textedit command entering field
-        Button R_command = findViewById(R.id.R_command);//find button
+        result = binding.textV;//find command result variable
+        ent_cmd = binding.command;//find textedit command entering field
+        Button R_command = binding.RCommand; //find button
+
         ent_cmd.setOnKeyListener((v, keyCode, event) -> {
             if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                 update();
